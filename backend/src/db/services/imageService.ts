@@ -34,3 +34,12 @@ export const deleteById = async (id: number): Promise<boolean> => {
 export const getAll = async () => {
     return Image.findAll();
 }
+
+export const getCaminhoById = async (id: number): Promise<string> => {
+    const image = await Image.findByPk(id);
+    if (!image) {
+        throw new Error('not found');
+    }
+    const caminho = image.caminho;
+    return caminho;
+}

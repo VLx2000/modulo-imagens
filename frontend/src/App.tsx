@@ -39,8 +39,18 @@ function App() {
       .then((res) => {
         alert("File Upload success");
       })
-      .catch((err) => alert("File Upload Error" + err));
+      .catch((err) => alert("File Upload Error " + err));
   };
+
+  function deleteFile(id: Number) {
+    axios
+      .delete(BASE_URL + '/api/v1/images/' + id)
+      .then((res) => {
+        alert("File Delete success");
+        document.location.reload();
+      })
+      .catch((err) => alert("File Delete Error " + err));
+  }
 
   return (
     <div className="App">
@@ -61,6 +71,7 @@ function App() {
             <p>Id: {image.id}</p>
             <p>Auisição: {image.aquisicao}</p>
             <p>Tipo: {image.tipo}</p>
+            <button onClick={() => deleteFile(image.id)}>X</button>
           </div>
         ))}
         { images.length === 0 && <div>Sem imagens!</div>}

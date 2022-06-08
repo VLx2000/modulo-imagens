@@ -6,8 +6,8 @@ const imagesRouter = Router();
 
 imagesRouter.get(':/id', imageController.getById);
 imagesRouter.get('/', imageController.getAll);
-imagesRouter.put('/:id', imageController.update);
-imagesRouter.delete('/:id', imageController.deleteById);
 imagesRouter.post('/', upload.single('image'), imageController.create);
+imagesRouter.put('/:id', imageController.update);
+imagesRouter.delete('/:id', imageController.erase);
 
 export default imagesRouter;
