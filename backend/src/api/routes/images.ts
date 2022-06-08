@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express'
 import { CreateImageDTO, UpdateImageDTO, FilterImageDTO } from '../dto/image.dto'
-import upload from '../controllers/images/upload';
+import upload from '../config/upload';
 
 import * as imageController from '../controllers/images'
 
