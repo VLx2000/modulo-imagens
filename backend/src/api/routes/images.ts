@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import upload from '../config/upload';
-import * as imageController from '../controllers/images';
+import upload from 'api/config/upload';
+import * as imageController from 'api/controllers/images';
 
 const imagesRouter = Router();
 

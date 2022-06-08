@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { CreateImageDTO, UpdateImageDTO, /*FilterImagesDTO*/ } from '../../dto/image.dto';
-import * as service from '../../../db/services/imageService';
+import { CreateImageDTO, UpdateImageDTO, /*FilterImagesDTO*/ } from 'api/dto/image.dto';
+import * as service from 'db/services/imageService';
 import * as mapper from './mapper';
 
 export const getById = async (req: Request, res: Response) => {
@@ -43,11 +43,3 @@ export const deleteById = async (req: Request, res: Response) => {
         success: result
     })
 }
-
-/*
-export const getAll = async (req: Request, res: Response) => {
-    const filters: FilterIngredientsDTO = req.query
-
-    const results = (await service.getAll(filters)).map(mapper.toImage)
-    return res.status(200).send(results)
-}*/

@@ -1,6 +1,6 @@
 //import {GetAllImagesFilters} from '../../db/dal/types'
 //import {Op} from 'sequelize'
-import Image, {ImageInput, ImageOuput} from '../models/Image'
+import Image, {ImageInput, ImageOuput} from 'db/models/Image'
 
 export const create = async (payload: ImageInput): Promise<ImageOuput> => {
     const image = await Image.create(payload);
@@ -34,12 +34,3 @@ export const deleteById = async (id: number): Promise<boolean> => {
 export const getAll = async () => {
     return Image.findAll();
 }
-
-/* export const getAll = async (filters: GetAllImagesFilters): Promise<ImageOuput[]> => {
-    return Image.findAll({
-        where: {
-            ...(filters?.isDeleted && {deletedAt: {[Op.not]: null}})
-        },
-        ...((filters?.isDeleted || filters?.includeDeleted) && {paranoid: true})
-    })
-} */

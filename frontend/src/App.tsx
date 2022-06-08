@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Image } from './types/images';
 import axios from 'axios';
-import { BASE_URL } from './utils/requests';
+import { Image } from 'types/images';
+import { BASE_URL } from 'utils/requests';
 import './App.css';
 
 function App() {
