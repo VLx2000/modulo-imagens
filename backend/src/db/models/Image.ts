@@ -1,5 +1,5 @@
 import { DataTypes, Model, Optional } from 'sequelize'
-import sequelizeConnection from '../config'
+import sequelizeConnection from 'db/config'
 
 interface ImageAttributes {
     id: number;
@@ -18,8 +18,6 @@ class Image extends Model<ImageAttributes, ImageInput> implements ImageAttribute
     public caminho!: string
     public tipo!: string
     public aquisicao!: string
-
-    // timestamps!
     public readonly createdAt!: Date;
     public readonly updatedAt!: Date;
     public readonly deletedAt!: Date;

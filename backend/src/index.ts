@@ -1,7 +1,7 @@
-import express, { Application, Request, Response } from 'express';
+import express, { Application } from 'express';
 
-import routes from './api/routes';
-import dbInit from './db/init';
+import routes from 'api/routes';
+import dbInit from 'db/init';
 
 dbInit();
 
@@ -14,17 +14,16 @@ export const get = () => {
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
 
-    app.get('/', async (req: Request, res: Response): Promise<Response> => {
-        return res.status(200).send({ message: `Endpoints available at http://localhost:${port}/api/v1` });
-    })
     // Enable CORS
     app.use(function (req, res, next) {
-        res.header('Access-Control-Allow-Origin', '*');
-        res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+        
+        res.header("Access-Control-Allow-Origin", "*")
+        res.header("Access-Control-Allow-Methods", "DELETE, POST, GET, OPTIONS")
+        res.header("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With")
         next();
     });
 
-    app.use(express.static('uploads'));
+    app.use('/uploads/', express.static('uploads'));
     app.use('/api/v1', routes);
 
     return app

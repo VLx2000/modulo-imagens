@@ -1,8 +1,8 @@
 import { Sequelize } from 'sequelize'
 
-const dbName = 'postgres'
-const dbUser = 'teste'
-const dbPassword = 'teste'
+const dbName = 'upload'
+const dbUser = 'upload'
+const dbPassword = 'upload'
 
 const sequelizeConnection = new Sequelize(dbName, dbUser, dbPassword, {
   host: 'localhost',

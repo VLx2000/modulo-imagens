@@ -1,5 +1,5 @@
-import {Image} from '../../interfaces'
-import {ImageOuput} from '../../../db/models/Image'
+import {Image} from 'api/interfaces'
+import {ImageOuput} from 'db/models/Image'
 
 export const toImage = (image: ImageOuput): Image => {
     return {
