@@ -18,8 +18,6 @@ class Image extends Model<ImageAttributes, ImageInput> implements ImageAttribute
     public caminho!: string
     public tipo!: string
     public aquisicao!: string
-
-    // timestamps!
     public readonly createdAt!: Date;
     public readonly updatedAt!: Date;
     public readonly deletedAt!: Date;

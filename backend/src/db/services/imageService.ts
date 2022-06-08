@@ -31,6 +31,10 @@ export const deleteById = async (id: number): Promise<boolean> => {
     return !!deletedImageCount;
 }
 
+export const getAll = async () => {
+    return Image.findAll();
+}
+
 /* export const getAll = async (filters: GetAllImagesFilters): Promise<ImageOuput[]> => {
     return Image.findAll({
         where: {

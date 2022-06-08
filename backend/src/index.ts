@@ -1,4 +1,4 @@
-import express, { Application, Request, Response } from 'express';
+import express, { Application } from 'express';
 
 import routes from './api/routes';
 import dbInit from './db/init';
@@ -14,9 +14,6 @@ export const get = () => {
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
 
-    app.get('/', async (req: Request, res: Response): Promise<Response> => {
-        return res.status(200).send({ message: `Endpoints available at http://localhost:${port}/api/v1` });
-    })
     // Enable CORS
     app.use(function (req, res, next) {
         res.header('Access-Control-Allow-Origin', '*');
@@ -24,7 +21,7 @@ export const get = () => {
         next();
     });
 
-    app.use(express.static('uploads'));
+    app.use('/uploads/', express.static('uploads'));
     app.use('/api/v1', routes);
 
     return app

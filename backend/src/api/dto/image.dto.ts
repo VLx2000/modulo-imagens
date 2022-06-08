@@ -9,7 +9,7 @@ export type CreateImageDTO = {
 
 export type UpdateImageDTO = Optional<CreateImageDTO, 'caminho'>
 
-export type FilterImageDTO = {
+/* export type FilterImageDTO = {
     isDeleted?: boolean
     includeDeleted?: boolean
-}
+} */
