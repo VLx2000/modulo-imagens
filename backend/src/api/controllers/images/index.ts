@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { CreateImageDTO, UpdateImageDTO } from 'api/dto/image.dto';
+import { CreateImageDTO, UpdateImageDTO } from 'api/types/image';
 import * as service from 'db/services/imageService';
 import * as mapper from './mapper';
 import fs from 'fs';

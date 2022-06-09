@@ -1,4 +1,4 @@
-import {Image} from 'api/interfaces'
+import {Image} from 'api/types/image'
 import {ImageOuput} from 'db/models/Image'
 
 export const toImage = (image: ImageOuput): Image => {

@@ -1,5 +1,5 @@
 import { DataTypes, Model, Optional } from 'sequelize'
-import sequelizeConnection from 'db/config'
+import sequelizeConnection from 'db/config/db.config'
 
 interface ImageAttributes {
     id: number;
