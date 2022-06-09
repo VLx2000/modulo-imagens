@@ -62,27 +62,35 @@ function App() {
   return (
     <div className="App">
       <form>
-        <input
-          accept='.nii.gz'
-          type="file"
-          multiple={false}
-          onChange={handleImageChange}
-        />
-        <input type="date" onChange={handleTextChange} />
+        <div>
+          <input
+            accept='.nii.gz'
+            type="file"
+            multiple={false}
+            onChange={handleImageChange}
+          />
+          <div>Data de aquisição:
+            <input type="date" onChange={handleTextChange} />
+          </div>
+        </div>
         <button onClick={uploadFile}>Upload</button>
       </form>
       <div>
-        { carregado && images.map(image => (
-          <div key={image.id}>
-            <img src={BASE_URL + image.caminho} alt="" />
-            <p>Caminho: {image.caminho}</p>
-            <p>Id: {image.id}</p>
-            <p>Aquisição: {image.aquisicao}</p>
-            <p>Tipo: {image.tipo}</p>
-            <button onClick={() => deleteFile(image.id)}>X</button>
+        {carregado && images.map(image => (
+          <div key={image.id} className='dados'>
+            <div>
+              <img src={BASE_URL + image.caminho} alt="" />
+              <p>Caminho: {image.caminho}</p>
+              <p>Id: {image.id}</p>
+              <p>Aquisição: {image.aquisicao}</p>
+              <p>Tipo: {image.tipo}</p>
+            </div>
+            <div className='divBotao'>
+              <button onClick={() => deleteFile(image.id)}>X</button>
+            </div>
           </div>
         ))}
-        { images.length === 0 && <div>Sem imagens!</div>}
+        {images.length === 0 && <div className='divMsg'><p>Sem imagens!</p></div>}
       </div>
     </div>
   );

@@ -1,17 +1,16 @@
 import { Request, Response } from 'express';
 import { CreateImageDTO, UpdateImageDTO } from 'api/types/image';
 import * as service from 'db/services/imageService';
-import * as mapper from './mapper';
 import fs from 'fs';
 
 export const getById = async (req: Request, res: Response) => {
     const id = Number(req.params.id);
-    const result = mapper.toImage(await service.getById(id));
+    const result = await service.getById(id);
     return res.status(200).send(result);
 }
 
 export const getAll = async (req: Request, res: Response) => {
-    const results = (await service.getAll()).map(mapper.toImage);
+    const results = await service.getAll();
     return res.status(200).send(results);
 }
 
@@ -25,7 +24,7 @@ export const create = async (req: Request, res: Response) => {
                 tipo: "NIFTI", 
                 aquisicao: req.body.aquisicao 
             };
-            const result = mapper.toImage(await service.create(payload));
+            const result = await service.create(payload);
             return res.status(200).send(result);
         }
     } catch (error) {
@@ -36,7 +35,7 @@ export const create = async (req: Request, res: Response) => {
 export const update = async (req: Request, res: Response) => {
     const id = Number(req.params.id);
     const payload: UpdateImageDTO = req.body;
-    const result = mapper.toImage(await service.update(id, payload));
+    const result = await service.update(id, payload);
     return res.status(201).send(result);
 }
 

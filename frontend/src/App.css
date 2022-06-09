@@ -1,11 +1,52 @@
 .App {
-  display: grid;
-  height: 100vh;
-  width: 100vw;
-  justify-content: center;
-  align-items: center;
+  background-color: rgb(250, 253, 255);
+  min-height: 100vh;
+  padding: 100px;
 }
 
-form > input, form > button {
-  font-size: 30px;
+.dados {
+  display: grid;
+  grid-template-columns: 1fr .1fr;
+}
+
+.divBotao {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.divBotao button {
+  background-color: red;
+  color: black;
+}
+
+.divMsg  {
+  display: flex;
+  justify-content: center;
+}
+
+form {
+  display: grid;
+  grid-template-columns: 1fr .2fr;
+}
+
+form input, form button, form {
+  font-size: 24px;
+}
+
+form div div {
+  margin-block: 10px;
+}
+
+button {
+  margin: 20px;
+  padding: 10px;
+  border: none;
+  border-radius: 26px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+button:hover {
+  cursor: pointer;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.274);
 }

@@ -1,11 +1,12 @@
 import { Sequelize } from 'sequelize'
 
-const dbName = 'upload'
-const dbUser = 'upload'
-const dbPassword = 'upload'
+const database = process.env.DB;
+const username = 'upload';
+const password = 'upload'
+const hostname = process.env.HOST;
 
-const sequelizeConnection = new Sequelize(dbName, dbUser, dbPassword, {
-  host: 'localhost',
+const sequelizeConnection = new Sequelize(database!, username, password, {
+  host: hostname,
   dialect: 'postgres'
 })
 
