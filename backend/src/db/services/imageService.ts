@@ -1,5 +1,3 @@
-//import {GetAllImagesFilters} from '../../db/dal/types'
-//import {Op} from 'sequelize'
 import Image, {ImageInput, ImageOuput} from 'db/models/Image'
 
 export const create = async (payload: ImageInput): Promise<ImageOuput> => {

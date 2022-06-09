@@ -7,6 +7,7 @@ import './App.css';
 function App() {
 
   const [selectedFile, setSelectedFile] = useState<Blob | string>('undefined');
+  const [aquisicao, setAquisicao] = useState<string>('-');
   const [carregado, setCarregado] = useState<Boolean>(false);
   const [images, setImages] = useState<Image[]>([]);
 
@@ -30,9 +31,15 @@ function App() {
     setSelectedFile(fileList[0]);
   };
 
+  const handleTextChange = function (e: React.ChangeEvent<HTMLInputElement>) {
+    const text = e.target.value;
+    setAquisicao(text);
+  };
+
   const uploadFile = function (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) {
     const formData = new FormData();
     formData.append("image", selectedFile);
+    formData.append("aquisicao", aquisicao);
 
     axios
       .post(BASE_URL + '/api/v1/images/', formData)
@@ -61,6 +68,7 @@ function App() {
           multiple={false}
           onChange={handleImageChange}
         />
+        <input type="date" onChange={handleTextChange} />
         <button onClick={uploadFile}>Upload</button>
       </form>
       <div>
@@ -69,7 +77,7 @@ function App() {
             <img src={BASE_URL + image.caminho} alt="" />
             <p>Caminho: {image.caminho}</p>
             <p>Id: {image.id}</p>
-            <p>Auisição: {image.aquisicao}</p>
+            <p>Aquisição: {image.aquisicao}</p>
             <p>Tipo: {image.tipo}</p>
             <button onClick={() => deleteFile(image.id)}>X</button>
           </div>

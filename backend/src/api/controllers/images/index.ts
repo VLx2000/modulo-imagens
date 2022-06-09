@@ -20,7 +20,11 @@ export const create = async (req: Request, res: Response) => {
         if (req.file != null) {
             const caminho: String = req.file.filename;
             console.log('Arquivo enviado com sucesso: ' + caminho);
-            const payload: CreateImageDTO = { caminho: "uploads/" + caminho, tipo: "nii", aquisicao: "20/08/2009" };
+            const payload: CreateImageDTO = {
+                caminho: "uploads/" + caminho, 
+                tipo: "NIFTI", 
+                aquisicao: req.body.aquisicao 
+            };
             const result = mapper.toImage(await service.create(payload));
             return res.status(200).send(result);
         }

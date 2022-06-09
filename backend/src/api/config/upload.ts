@@ -7,8 +7,15 @@ const storage = multer.diskStorage({
         callback(null, 'uploads');
     },
     filename: function (req: Request, file: Express.Multer.File, callback: (error: Error | null, filename: string) => void) {
-        const id = crypto.randomUUID();
-        callback(null, id + file.originalname);
+        const formats = /nii.gz|nii/;
+        //console.log(file.originalname)
+        if (!formats.test((file.originalname).toLowerCase())) {
+            callback(new Error('file is not allowed'), file.originalname);
+        }
+        else {
+            const id = crypto.randomUUID();
+            callback(null, id + file.originalname);
+        }
     }
 });
 
