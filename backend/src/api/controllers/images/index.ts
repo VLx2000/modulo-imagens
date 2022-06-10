@@ -1,17 +1,17 @@
 import { Request, Response } from 'express';
-import { CreateImageDTO, UpdateImageDTO } from 'api/types/image';
-import * as service from 'db/services/imageService';
+import { CreateImageDTO, UpdateImageDTO } from 'api/types/image.dto';
+import * as service from 'api/services/imageService';
 import fs from 'fs';
+
+export const getAll = async (req: Request, res: Response) => {
+    const results = await service.getAll();
+    return res.status(200).send(results);
+}
 
 export const getById = async (req: Request, res: Response) => {
     const id = Number(req.params.id);
     const result = await service.getById(id);
     return res.status(200).send(result);
-}
-
-export const getAll = async (req: Request, res: Response) => {
-    const results = await service.getAll();
-    return res.status(200).send(results);
 }
 
 export const create = async (req: Request, res: Response) => {
@@ -45,7 +45,7 @@ export const erase = async (req: Request, res: Response) => {
         const caminho = await service.getCaminhoById(id);
         fs.unlink(caminho, 
             (async error => {
-                if (error) console.log(error);
+                if (error) return res.status(422).send(error);
                 else {
                     console.log("\nDeleted file: " + caminho);
                     const result = await service.deleteById(id);

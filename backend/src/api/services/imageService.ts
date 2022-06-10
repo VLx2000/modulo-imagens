@@ -1,4 +1,16 @@
-import Image, {ImageInput, ImageOuput} from 'db/models/Image'
+import Image, {ImageInput, ImageOuput} from 'api/models/Image'
+
+export const getAll = async () => {
+    return Image.findAll();
+}
+
+export const getById = async (id: number): Promise<ImageOuput> => {
+    const image = await Image.findByPk(id);
+    if (!image) {
+        throw new Error('not found');
+    }
+    return image;
+}
 
 export const create = async (payload: ImageInput): Promise<ImageOuput> => {
     const image = await Image.create(payload);
@@ -14,23 +26,11 @@ export const update = async (id: number, payload: Partial<ImageInput>): Promise<
     return updatedImage;
 }
 
-export const getById = async (id: number): Promise<ImageOuput> => {
-    const image = await Image.findByPk(id);
-    if (!image) {
-        throw new Error('not found');
-    }
-    return image;
-}
-
 export const deleteById = async (id: number): Promise<boolean> => {
     const deletedImageCount = await Image.destroy({
         where: {id}
     })
     return !!deletedImageCount;
-}
-
-export const getAll = async () => {
-    return Image.findAll();
 }
 
 export const getCaminhoById = async (id: number): Promise<string> => {

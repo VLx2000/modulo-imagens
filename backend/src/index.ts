@@ -1,7 +1,7 @@
 import express, { Application } from 'express';
 
 import routes from 'api/routes';
-import dbInit from 'db/init';
+import dbInit from 'api/db.init';
 
 dbInit();
 

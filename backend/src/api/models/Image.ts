@@ -1,5 +1,5 @@
-import { DataTypes, Model, Optional } from 'sequelize'
-import sequelizeConnection from 'db/config/db.config'
+import { DataTypes, Model, Optional } from 'sequelize';
+import sequelizeConnection from 'api/config/db.config';
 
 interface ImageAttributes {
     id: number;
@@ -14,10 +14,10 @@ export interface ImageInput extends Optional<ImageAttributes, 'id' | 'caminho'> 
 export interface ImageOuput extends Required<ImageAttributes> { }
 
 class Image extends Model<ImageAttributes, ImageInput> implements ImageAttributes {
-    public id!: number
-    public caminho!: string
-    public tipo!: string
-    public aquisicao!: string
+    public id!: number;
+    public caminho!: string;
+    public tipo!: string;
+    public aquisicao!: string;
     public readonly createdAt!: Date;
     public readonly updatedAt!: Date;
     public readonly deletedAt!: Date;
@@ -47,4 +47,4 @@ Image.init({
     paranoid: true
 })
 
-export default Image
+export default Image;

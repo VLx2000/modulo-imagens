@@ -1,4 +1,4 @@
-import Image from 'db/models/Image';
+import Image from 'api/models/Image';
 const isDev = process.env.NODE_ENV === 'development';
 
 const dbInit = () => {

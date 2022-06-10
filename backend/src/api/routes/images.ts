@@ -4,8 +4,8 @@ import * as imageController from 'api/controllers/images';
 
 const imagesRouter = Router();
 
-imagesRouter.get(':/id', imageController.getById);
 imagesRouter.get('/', imageController.getAll);
+imagesRouter.get(':/id', imageController.getById);
 imagesRouter.post('/', upload.single('image'), imageController.create);
 imagesRouter.put('/:id', imageController.update);
 imagesRouter.delete('/:id', imageController.erase);
