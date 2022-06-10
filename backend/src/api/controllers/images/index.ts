@@ -15,21 +15,15 @@ export const getById = async (req: Request, res: Response) => {
 }
 
 export const create = async (req: Request, res: Response) => {
-    try {
-        if (req.file != null) {
-            const caminho: String = req.file.filename;
-            console.log('Arquivo enviado com sucesso: ' + caminho);
-            const payload: CreateImageDTO = {
-                caminho: "uploads/" + caminho, 
-                tipo: "NIFTI", 
-                aquisicao: req.body.aquisicao 
-            };
-            const result = await service.create(payload);
-            return res.status(200).send(result);
-        }
-    } catch (error) {
-        console.log(error);
-    }
+    const caminho: String = req.file!.filename;
+    console.log('Arquivo enviado com sucesso: ' + caminho);
+    const payload: CreateImageDTO = {
+        caminho: "uploads/" + caminho,
+        tipo: "NIFTI",
+        aquisicao: req.body.aquisicao
+    };
+    const result = await service.create(payload);
+    return res.status(200).send(result);
 }
 
 export const update = async (req: Request, res: Response) => {
@@ -40,20 +34,16 @@ export const update = async (req: Request, res: Response) => {
 }
 
 export const erase = async (req: Request, res: Response) => {
-    try {
-        const id = Number(req.params.id);
-        const caminho = await service.getCaminhoById(id);
-        fs.unlink(caminho, 
-            (async error => {
-                if (error) return res.status(422).send(error);
-                else {
-                    console.log("\nDeleted file: " + caminho);
-                    const result = await service.deleteById(id);
-                    return res.status(204).send(result);
-                }
-            })
-        );
-    } catch (error) {
-        console.error(error);
-    }
+    const id = Number(req.params.id);
+    const caminho = await service.getCaminhoById(id);
+    fs.unlink(caminho,
+        (async error => {
+            if (error) return res.status(422).send(error);
+            else {
+                console.log("\nDeleted file: " + caminho);
+                const result = await service.deleteById(id);
+                return res.status(204).send(result);
+            }
+        })
+    );
 }
