@@ -15,27 +15,28 @@ export const getById = async (req: Request, res: Response) => {
 }
 
 export const create = async (req: Request, res: Response) => {
-    const caminho: String = req.file!.filename;
-    console.log('Arquivo enviado com sucesso: ' + caminho);
+    const path: string = req.file!.filename;
+    console.log('\n\nArquivo enviado com sucesso para o disco: ' + path);
     const payload: CreateImageDTO = {
-        caminho: "uploads/" + caminho,
+        caminho: path,
         tipo: "NIFTI",
         aquisicao: req.body.aquisicao
     };
+    //console.log('chegou')
     const result = await service.create(payload);
-    return res.status(200).send(result);
+    return res.status(201).send(result);
 }
 
 export const update = async (req: Request, res: Response) => {
     const id = Number(req.params.id);
     const payload: UpdateImageDTO = req.body;
     const result = await service.update(id, payload);
-    return res.status(201).send(result);
+    return res.status(200).send(result);
 }
 
 export const erase = async (req: Request, res: Response) => {
     const id = Number(req.params.id);
-    const caminho = await service.getCaminhoById(id);
+    const caminho = "uploads/" + await service.getCaminhoById(id);
     fs.unlink(caminho,
         (async error => {
             if (error) return res.status(422).send(error);

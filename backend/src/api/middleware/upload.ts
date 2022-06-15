@@ -1,5 +1,6 @@
 const multer = require('multer');
 const crypto = require('crypto');
+//const path = require('path')
 
 // Configuração de armazenamento
 const storage = multer.diskStorage({
@@ -7,14 +8,18 @@ const storage = multer.diskStorage({
         callback(null, 'uploads');
     },
     filename: function (req: Request, file: Express.Multer.File, callback: (error: Error | null, filename: string) => void) {
-        const formats = /nii.gz|nii/;
-        //console.log(file.originalname)
-        if (!formats.test((file.originalname).toLowerCase())) {
-            callback(new Error('file is not allowed'), file.originalname);
+        const formats = /nii.gz|nii/;   //formatos suportados
+        const fileFormat = /\.([^/]+)$/.exec(file.originalname)![1] //separando extensao do arquivo
+        //const fileFormat = path.extname(file.originalname);
+        console.log('Extensão: ' + fileFormat)
+        if (!formats.test(fileFormat)) {
+            callback(new Error('Esse formato de arquivo n eh permitido'), file.originalname);
         }
         else {
             const id = crypto.randomUUID();
-            callback(null, id + file.originalname);
+            const filePath = id + '.' + fileFormat;
+            
+            callback(null, filePath);
         }
     }
 });

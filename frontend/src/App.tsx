@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Image } from 'types/images';
 import { BASE_URL } from 'utils/requests';
@@ -6,8 +6,8 @@ import './App.css';
 
 function App() {
 
-  const [selectedFile, setSelectedFile] = useState<Blob | string>('undefined');
-  const [aquisicao, setAquisicao] = useState<string>('-');
+  /*const [selectedFile, setSelectedFile] = useState<Blob | string>('undefined');
+  const [aquisicao, setAquisicao] = useState<string>('-');*/
   const [carregado, setCarregado] = useState<Boolean>(false);
   const [images, setImages] = useState<Image[]>([]);
 
@@ -23,32 +23,6 @@ function App() {
       .catch((err) => alert("Images Load Error" + err));
   }, []);
 
-  const handleImageChange = function (e: React.ChangeEvent<HTMLInputElement>) {
-    const fileList = e.target.files;
-
-    if (!fileList) return;
-
-    setSelectedFile(fileList[0]);
-  };
-
-  const handleTextChange = function (e: React.ChangeEvent<HTMLInputElement>) {
-    const text = e.target.value;
-    setAquisicao(text);
-  };
-
-  const uploadFile = function (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) {
-    const formData = new FormData();
-    formData.append("image", selectedFile);
-    formData.append("aquisicao", aquisicao);
-
-    axios
-      .post(BASE_URL + '/api/v1/images/', formData)
-      .then((res) => {
-        alert("File Upload success");
-      })
-      .catch((err) => alert("File Upload Error " + err));
-  };
-
   function deleteFile(id: Number) {
     axios
       .delete(BASE_URL + '/api/v1/images/' + id)
@@ -61,20 +35,16 @@ function App() {
 
   return (
     <div className="App">
-      <form>
+      <form method="post" encType="multipart/form-data" action={BASE_URL + '/api/v1/images/'}>
         <div>
-          <input
-            accept='.nii.gz'
-            type="file"
-            multiple={false}
-            onChange={handleImageChange}
-          />
+          <input type="file" multiple={false} name='image' />
           <div>Data de aquisição:
-            <input type="date" onChange={handleTextChange} />
+            <input type="date" name="aquisicao" />
           </div>
         </div>
-        <button onClick={uploadFile}>Upload</button>
+        <button type='submit'>Upload</button>
       </form>
+      
       <div>
         {carregado && images.map(image => (
           <div key={image.id} className='dados'>

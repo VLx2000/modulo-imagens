@@ -1,7 +1,7 @@
 import Image, {ImageInput, ImageOuput} from 'api/models/Image'
 
 export const getAll = async () => {
-    return Image.findAll();
+    return await Image.findAll();
 }
 
 export const getById = async (id: number): Promise<ImageOuput> => {
