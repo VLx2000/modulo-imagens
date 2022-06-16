@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { CreateImageDTO, UpdateImageDTO } from 'api/types/image.dto';
+import { dirUploads } from 'api/middleware/upload'
 import * as service from 'api/services/imageService';
 import fs from 'fs';
 
@@ -36,7 +37,7 @@ export const update = async (req: Request, res: Response) => {
 
 export const erase = async (req: Request, res: Response) => {
     const id = Number(req.params.id);
-    const caminho = "uploads/" + await service.getCaminhoById(id);
+    const caminho = dirUploads + await service.getCaminhoById(id);
     fs.unlink(caminho,
         (async error => {
             if (error) return res.status(422).send(error);

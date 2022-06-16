@@ -6,8 +6,6 @@ import './App.css';
 
 function App() {
 
-  /*const [selectedFile, setSelectedFile] = useState<Blob | string>('undefined');
-  const [aquisicao, setAquisicao] = useState<string>('-');*/
   const [carregado, setCarregado] = useState<Boolean>(false);
   const [images, setImages] = useState<Image[]>([]);
 
@@ -20,7 +18,7 @@ function App() {
         console.table(data)
         setCarregado(true);
       })
-      .catch((err) => alert("Images Load Error" + err));
+      .catch((err) => alert("Erro ao carregar imagens" + err));
   }, []);
 
   function deleteFile(id: Number) {
@@ -30,17 +28,19 @@ function App() {
         alert("File Delete success");
         document.location.reload();
       })
-      .catch((err) => alert("File Delete Error " + err));
+      .catch((err) => alert("Erro ao deletar imagem" + err));
   }
 
   return (
     <div className="App">
       <form method="post" encType="multipart/form-data" action={BASE_URL + '/api/v1/images/'}>
         <div>
-          <input type="file" multiple={false} name='image' />
           <div>Data de aquisição:
             <input type="date" name="aquisicao" />
           </div>
+          <input type="number" name='idPaciente' value={111} hidden readOnly/>
+          <input type="number" name='idUser' value={1} hidden readOnly/>
+          <input type="file" multiple={false} name='image' /> {/* deve ser o ultimo dos inputs */}
         </div>
         <button type='submit'>Upload</button>
       </form>
@@ -49,7 +49,7 @@ function App() {
         {carregado && images.map(image => (
           <div key={image.id} className='dados'>
             <div>
-              <img src={BASE_URL + image.caminho} alt="" />
+              {/* <img src={BASE_URL + '/uploads/' + image.caminho} alt="" /> */}
               <p>Caminho: {image.caminho}</p>
               <p>Id: {image.id}</p>
               <p>Aquisição: {image.aquisicao}</p>
