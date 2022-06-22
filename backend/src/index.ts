@@ -1,5 +1,6 @@
 import express, { Application } from 'express';
 import cors_config from 'api/middleware/cors';
+import { uploadError } from 'api/middleware/upload';
 import routes from 'api/routes';
 import dbInit from 'api/db.init';
 
@@ -19,6 +20,7 @@ export const start = () => {
 
     app.use('/uploads/', express.static('uploads'));
     app.use('/api/v1', routes);
+    app.use(uploadError);
 
     try {
         app.listen(port, () => {

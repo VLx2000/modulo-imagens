@@ -8,6 +8,6 @@ imagesRouter.get('/', imageController.getAll);
 imagesRouter.get(':/id', imageController.getById);
 imagesRouter.post('/', upload.single('image'), imageController.create);
 imagesRouter.put('/:id', imageController.update);
-imagesRouter.delete('/:id', imageController.erase);
+imagesRouter.delete('/:id', imageController.hide);
 
 export default imagesRouter;
