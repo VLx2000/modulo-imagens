@@ -35,12 +35,7 @@ export const create = async (req: Request, res: Response) => {
 
 export const update = async (req: Request, res: Response) => {
     const id = Number(req.params.id);
-    const payload: UpdateImageDTO = {
-        caminho: "path",
-        tipo: "NIFTI",
-        aquisicao: req.body.aquisicao,
-        arquivado: false
-    };
+    const payload: UpdateImageDTO = req.body;
     const result = await service.update(id, payload);
     return res.status(200).send(result);
 }
