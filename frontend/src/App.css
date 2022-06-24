@@ -12,3 +12,11 @@
 .btn-primary {
   width: 100%;
 }
+
+.divBotao {
+  display: grid;
+}
+
+.divBotao button {
+  margin: 20px;
+}

@@ -72,7 +72,17 @@ function App() {
         //alert("File Hide success");
         document.location.reload();
       })
-      .catch((err) => alert("Erro ao arquivar imagem" + err));
+      .catch((err) => alert("Erro ao modificar imagem" + err));
+  }
+
+  function deleteFile(id: Number) {
+    axiosInstance
+      .delete('/api/v1/images/' + id)
+      .then((res) => {
+        //alert("File Hide success");
+        document.location.reload();
+      })
+      .catch((err) => alert("Erro ao deletar imagem" + err));
   }
 
   return (
@@ -116,14 +126,17 @@ function App() {
               }
               {image.arquivado && 
                 <div>
-                  <p>Arquivado</p>
                   <p>Id: {image.id}</p>
                 </div>
               }
               <div className='divBotao'>
                 <Button variant="secondary" 
                         onClick={() => changeFileVisibility(image.id)}>
-                          {image.arquivado ? 'Tirar do arquivo': 'Arquivar'}
+                          {image.arquivado ? 'Desarquivar': 'Arquivar'}
+                </Button>
+                <Button variant="outline-danger" 
+                        onClick={() => deleteFile(image.id)}>
+                          Deletar
                 </Button>
               </div>
             </div>

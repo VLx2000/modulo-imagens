@@ -11,7 +11,7 @@ interface ImageAttributes {
     updatedAt?: Date;
     deletedAt?: Date;
 }
-export interface ImageInput extends Optional<ImageAttributes, 'id' | 'caminho' | 'arquivado'> { }
+export interface ImageInput extends Optional<ImageAttributes, 'id' | 'caminho' | 'arquivado' | 'tipo'> { }
 export interface ImageOuput extends Required<ImageAttributes> { }
 
 class Image extends Model<ImageAttributes, ImageInput> implements ImageAttributes {

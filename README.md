@@ -32,6 +32,6 @@ Requisição | Rota | Função
 get | `/` | obter todas as imagens salvas
 get | `/id` | obter imagem de determinado id
 post | `/` | criar nova imagem
-put | `/id` | atualizar imagem
+put | `/update/id` | atualizar imagem
 put | `/archive/id` | arquivar imagem
 delete | `/id` | deletar imagem
