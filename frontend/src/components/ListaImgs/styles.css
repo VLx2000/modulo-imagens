@@ -1,0 +1,19 @@
+.dados {
+    display: grid;
+    grid-template-columns: 1fr .1fr;
+    margin-block: 50px;
+}
+
+.divMsg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.divBotao {
+    display: grid;
+}
+
+.divBotao button {
+    margin-block: 20px;
+}
