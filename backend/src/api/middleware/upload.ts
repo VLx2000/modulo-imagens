@@ -39,7 +39,7 @@ export const upload = multer({
     limits: {
         fileSize: 1024000 * 1024000,
     },
-    /* fileFilter: (req, file, callback) => {
+    fileFilter: (req, file, callback) => {
         const formats = /nii.gz|nii/;   //formatos suportados
         const fileFormat = /\.([^/]+)$/.exec(file.originalname)![1] //separando extensao do arquivo
         console.log('Extensão: ' + fileFormat)
@@ -48,7 +48,7 @@ export const upload = multer({
         } else {
             callback(null, false);
         }
-    }, */
+    },
 });
 
 //Error handling
