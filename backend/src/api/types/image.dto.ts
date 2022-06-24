@@ -5,6 +5,7 @@ export type CreateImageDTO = {
     caminho: string;
     tipo: string;
     aquisicao: string;
+    arquivado: boolean;
 }
 
-export type UpdateImageDTO = Optional<CreateImageDTO, 'aquisicao'>
+export type UpdateImageDTO = Optional<CreateImageDTO, 'aquisicao' | 'arquivado'>

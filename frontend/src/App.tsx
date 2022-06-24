@@ -11,7 +11,7 @@ import { Image } from 'types/images';
 import './App.css';
 
 function App() {
-  const [image, setImage] = useState<Blob|string>('');
+  const [image, setImage] = useState<Blob | string>('');
   const [aquisicao, setAquisicao] = useState<string>('');
   const [progress, setProgress] = useState<number>();
   const [error, setError] = useState<string>('');
@@ -65,14 +65,14 @@ function App() {
       .catch((err) => alert("Erro ao carregar imagens" + err));
   }, []);
 
-  function deleteFile(id: Number) {
+  function changeFileVisibility(id: Number) {
     axiosInstance
-      .delete('/api/v1/images/' + id)
+      .put('/api/v1/images/archive/' + id)
       .then((res) => {
         //alert("File Hide success");
         document.location.reload();
       })
-      .catch((err) => alert("Erro ao deletar imagem" + err));
+      .catch((err) => alert("Erro ao arquivar imagem" + err));
   }
 
   return (
@@ -91,8 +91,10 @@ function App() {
             />
           </Form.Group>
           <Form.Group className="mb-3">
-            <Button variant="primary" type="submit" disabled={!!progress && error === ''}>
-              {!!progress && error === '' ? 'Enviando...' : 'Upload'}
+            <Button variant="primary" 
+                    type="submit" 
+                    disabled={!!progress && error === ''}>
+                      {!!progress && error === '' ? 'Enviando...' : 'Upload'}
             </Button>
           </Form.Group>
           {error && <Alert variant="danger">{error}</Alert>}
@@ -104,14 +106,25 @@ function App() {
         <div>
           {carregado && images.map(image => (
             <div key={image.id} className='dados'>
-              <div>
-                <p>Caminho: {image.caminho}</p>
-                <p>Id: {image.id}</p>
-                <p>Aquisição: {image.aquisicao}</p>
-                <p>Tipo: {image.tipo}</p>
-              </div>
+              {!image.arquivado && 
+                <div>
+                  <p>Caminho: {image.caminho}</p>
+                  <p>Id: {image.id}</p>
+                  <p>Aquisição: {image.aquisicao}</p>
+                  <p>Tipo: {image.tipo}</p>
+                </div>
+              }
+              {image.arquivado && 
+                <div>
+                  <p>Arquivado</p>
+                  <p>Id: {image.id}</p>
+                </div>
+              }
               <div className='divBotao'>
-                <Button variant="secondary" onClick={() => deleteFile(image.id)}>Ocultar</Button>
+                <Button variant="secondary" 
+                        onClick={() => changeFileVisibility(image.id)}>
+                          {image.arquivado ? 'Tirar do arquivo': 'Arquivar'}
+                </Button>
               </div>
             </div>
           ))}

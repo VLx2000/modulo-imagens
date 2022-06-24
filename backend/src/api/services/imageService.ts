@@ -4,6 +4,12 @@ export const getAll = async () => {
     return await Image.findAll();
 }
 
+export const getAllNotArchived = async () => {
+    return await Image.findAll({
+        where: {arquivado: false}
+    });
+}
+
 export const getById = async (id: number): Promise<ImageOuput> => {
     const image = await Image.findByPk(id);
     if (!image) {
@@ -23,6 +29,17 @@ export const update = async (id: number, payload: Partial<ImageInput>): Promise<
         throw new Error('not found');
     }
     const updatedImage = await (image as Image).update(payload);
+    return updatedImage;
+}
+
+export const changeVisibility = async (id: number): Promise<ImageOuput> => {
+    const image = await Image.findByPk(id);
+    if (!image) {
+        throw new Error('not found');
+    }
+    const updatedImage = await (image as Image).update({
+        arquivado: !image.arquivado
+    });
     return updatedImage;
 }
 

@@ -25,7 +25,8 @@ export const create = async (req: Request, res: Response) => {
         const payload: CreateImageDTO = {
             caminho: path,
             tipo: "NIFTI",
-            aquisicao: req.body.aquisicao
+            aquisicao: req.body.aquisicao,
+            arquivado: false
         };
         const result = await service.create(payload);
         return res.status(201).send(result);
@@ -39,9 +40,9 @@ export const update = async (req: Request, res: Response) => {
     return res.status(200).send(result);
 }
 
-export const hide = async (req: Request, res: Response) => {
+export const updateVisibility = async (req: Request, res: Response) => {
     const id = Number(req.params.id);
-    const result = await service.deleteById(id);
+    const result = await service.changeVisibility(id);
     return res.status(204).send(result);
 }
 

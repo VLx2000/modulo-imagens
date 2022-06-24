@@ -6,11 +6,12 @@ interface ImageAttributes {
     caminho: string;
     tipo: string;
     aquisicao: string;
+    arquivado: boolean;
     createdAt?: Date;
     updatedAt?: Date;
     deletedAt?: Date;
 }
-export interface ImageInput extends Optional<ImageAttributes, 'id' | 'caminho'> { }
+export interface ImageInput extends Optional<ImageAttributes, 'id' | 'caminho' | 'arquivado'> { }
 export interface ImageOuput extends Required<ImageAttributes> { }
 
 class Image extends Model<ImageAttributes, ImageInput> implements ImageAttributes {
@@ -18,6 +19,7 @@ class Image extends Model<ImageAttributes, ImageInput> implements ImageAttribute
     public caminho!: string;
     public tipo!: string;
     public aquisicao!: string;
+    public arquivado!: boolean;
     public readonly createdAt!: Date;
     public readonly updatedAt!: Date;
     public readonly deletedAt!: Date;
@@ -40,6 +42,10 @@ Image.init({
     },
     aquisicao: {
         type: DataTypes.STRING
+    },
+    arquivado: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false
     }
 }, {
     timestamps: true,
