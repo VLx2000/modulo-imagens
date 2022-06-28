@@ -30,7 +30,7 @@ Neste módulo, o cliente, após logado, pode realizar o upload de uma imagem no 
 Requisição | Rota | Função
 --------- | ------ | ------
 get | `/` | obter todas as imagens salvas
-get | `/id` | obter imagem de determinado id
+get | `/idPaciente` | obter imagens de determinado paciente
 post | `/` | criar nova imagem
 put | `/update/id` | atualizar imagem
 put | `/archive/id` | arquivar imagem

@@ -5,10 +5,10 @@ import './styles.css';
 
 type Props = {
     images: Image[];
-    abaArquivo: boolean;
+    arquivado: boolean;
 }
 
-function ListaImgs({ images, abaArquivo }: Props) {
+function ListaImgs({ images, arquivado }: Props) {
 
     function changeFileVisibility(id: Number) {
         axiosInstance
@@ -36,7 +36,7 @@ function ListaImgs({ images, abaArquivo }: Props) {
                 <div className='dados' key={image.id}>
                     <div>
                         <p>Caminho: {image.caminho}</p>
-                        <p>Id: {image.id}</p>
+                        <p>Id: {image.id}/Paciente: {image.idPaciente}</p>
                         <p>Aquisição: {image.aquisicao}</p>
                         <p>Tipo: {image.tipo}</p>
                     </div>
@@ -47,12 +47,12 @@ function ListaImgs({ images, abaArquivo }: Props) {
                         </Button>
                         <Button variant="outline-danger"
                             onClick={() => deleteFile(image.id)}>
-                            Deletar
+                            Remover
                         </Button>
                     </div>
                 </div>
             ))}
-            <div className='divMsg'><p>{images.length} imagem(ns) {abaArquivo && 'arquivadas'}</p></div>
+            <div className='divMsg'><p>{images.length} imagem(ns) {arquivado && 'arquivadas'}</p></div>
         </div>
     );
 }

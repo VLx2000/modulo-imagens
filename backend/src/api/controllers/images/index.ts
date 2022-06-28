@@ -9,9 +9,9 @@ export const getAll = async (req: Request, res: Response) => {
     return res.status(200).send(results);
 }
 
-export const getById = async (req: Request, res: Response) => {
+export const getPacienteImages = async (req: Request, res: Response) => {
     const id = Number(req.params.id);
-    const result = await service.getById(id);
+    const result = await service.getAllByPaciente(id);
     return res.status(200).send(result);
 }
 
@@ -23,6 +23,7 @@ export const create = async (req: Request, res: Response) => {
         const path: string = req.file!.filename;
         console.log('\n\nArquivo enviado com sucesso para o disco: ' + path);
         const payload: CreateImageDTO = {
+            idPaciente: req.body.idPaciente,
             caminho: path,
             tipo: "NIFTI",
             aquisicao: req.body.aquisicao,

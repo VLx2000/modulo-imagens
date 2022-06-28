@@ -3,6 +3,7 @@ import sequelizeConnection from 'api/config/db.config';
 
 interface ImageAttributes {
     id: number;
+    idPaciente: number;
     caminho: string;
     tipo: string;
     aquisicao: string;
@@ -16,6 +17,7 @@ export interface ImageOuput extends Required<ImageAttributes> { }
 
 class Image extends Model<ImageAttributes, ImageInput> implements ImageAttributes {
     public id!: number;
+    public idPaciente!: number;
     public caminho!: string;
     public tipo!: string;
     public aquisicao!: string;
@@ -27,9 +29,13 @@ class Image extends Model<ImageAttributes, ImageInput> implements ImageAttribute
 
 Image.init({
     id: {
-        type: DataTypes.INTEGER.UNSIGNED,
+        type: DataTypes.INTEGER,
         autoIncrement: true,
-        primaryKey: true,
+        primaryKey: true
+    },
+    idPaciente: {
+        type: DataTypes.INTEGER,
+        allowNull: false
     },
     caminho: {
         type: DataTypes.STRING,

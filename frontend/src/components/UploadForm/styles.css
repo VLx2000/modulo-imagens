@@ -1,3 +1,7 @@
 .upload-form {
     margin-bottom: 20px;
 }
+
+.upload-button {
+  width: 100%;
+}

@@ -1,5 +1,6 @@
 export type Image = {
     id: number;
+    idPaciente: number;
     caminho: string;
     tipo: string;
     aquisicao: string;

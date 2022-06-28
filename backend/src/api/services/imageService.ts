@@ -1,21 +1,19 @@
 import Image, {ImageInput, ImageOuput} from 'api/models/Image'
 
-export const getAll = async () => {
+export const getAll = async (): Promise<ImageOuput[]>  => {
     return await Image.findAll();
 }
 
-export const getAllNotArchived = async () => {
+export const getAllNotArchived = async (): Promise<ImageOuput[]>  => {
     return await Image.findAll({
         where: {arquivado: false}
     });
 }
 
-export const getById = async (id: number): Promise<ImageOuput> => {
-    const image = await Image.findByPk(id);
-    if (!image) {
-        throw new Error('not found');
-    }
-    return image;
+export const getAllByPaciente = async (id: number): Promise<ImageOuput[]> => {
+    return await Image.findAll({
+        where: {idPaciente: id}
+    });
 }
 
 export const create = async (payload: ImageInput): Promise<ImageOuput> => {

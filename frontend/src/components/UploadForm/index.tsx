@@ -3,19 +3,23 @@ import { Alert, Button, Form, ProgressBar } from "react-bootstrap";
 import axiosInstance from "utils/axios";
 import './styles.css';
 
-function UploadForm() {
+type Props = {
+    idPaciente: string
+}
+
+function UploadForm({idPaciente}: Props) {
 
     const [image, setImage] = useState<Blob | string>('');
     const [aquisicao, setAquisicao] = useState<string>('');
     const [progress, setProgress] = useState<number>();
-    const [error, setError] = useState<string>('');
+    const [message, setMessage] = useState<string>('');
 
     const submitHandler = (e: { preventDefault: () => void; }) => {
         e.preventDefault();
-
+        setMessage('');
         let formData = new FormData();
         formData.append("aquisicao", aquisicao as string);
-        formData.append("idPaciente", 111 as unknown as Blob);
+        formData.append("idPaciente", idPaciente /* Math.floor(Math.random()* (10 - 1) + 1) as unknown as Blob*/);
         formData.append("idUser", 1 as unknown as Blob);
         formData.append("image", image);
 
@@ -30,16 +34,17 @@ function UploadForm() {
             })
             .then((res) => {
                 //alert("File Upload success");
+                setMessage('Enviado com sucesso');
                 document.location.reload();
             })
             .catch((error) => {
                 const code = error?.response?.data?.code;
                 switch (code) {
                     case "ERRO_ARQUIVO":
-                        setError("ADICIONE UM ARQUIVO .nii OU .nii.gz!!");
+                        setMessage("ADICIONE UM ARQUIVO .nii OU .nii.gz!!");
                         break;
                     default:
-                        setError("Ops. Algo deu errado");
+                        setMessage("Ops. Algo deu errado");
                         break;
                 }
             });
@@ -61,14 +66,17 @@ function UploadForm() {
             <Form.Group className="mb-3">
                 <Button variant="primary"
                     type="submit"
-                    disabled={!!progress && error === ''}>
-                    {!!progress && error === '' ? 'Enviando...' : 'Upload'}
+                    className="upload-button"
+                    disabled={!!progress && message === ''}>
+                    {!!progress && message === '' ? 'Enviando...' : 'Upload'}
                 </Button>
             </Form.Group>
-            {error && <Alert variant="danger">{error}</Alert>}
-            {!error && progress && (
+            {message && 
+                <Alert variant={message === 'Enviado com sucesso' ? 'success' : 'danger'}>{message}</Alert>
+            }
+            {!message && progress && 
                 <ProgressBar animated now={progress} label={`${progress}%`} />
-            )}
+            }
         </Form>
     );
 }
