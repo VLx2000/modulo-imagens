@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { CreateImageDTO, UpdateImageDTO } from 'api/types/image.dto';
-import { dirUploads, dirApagados } from 'api/config/saving';
+import { dirUploads, dirApagados } from 'api/config/dir.config';
 import * as service from 'api/services/imageService';
 import fs from 'fs';
 import crypto from 'crypto';
@@ -34,7 +34,10 @@ export const create = async (req: Request, res: Response) => {
 
 export const update = async (req: Request, res: Response) => {
     const id = Number(req.params.id);
-    const payload: UpdateImageDTO = req.body;
+    const payload: UpdateImageDTO = {
+        aquisicao: req.body.aquisicao,
+    }
+    console.log(payload.aquisicao)
     const result = await service.update(id, payload);
     return res.status(200).send(result);
 }

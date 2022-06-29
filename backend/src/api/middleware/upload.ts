@@ -2,7 +2,7 @@ import multer from 'multer';
 import crypto from 'crypto';
 import fs from 'fs';
 import { Request, Response } from 'express';
-import { dirUploads } from 'api/config/saving';
+import { dirUploads } from 'api/config/dir.config';
 
 let filePath: string;
 

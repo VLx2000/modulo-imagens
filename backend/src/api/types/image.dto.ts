@@ -9,4 +9,4 @@ export type CreateImageDTO = {
     arquivado: boolean;
 }
 
-export type UpdateImageDTO = Optional<CreateImageDTO, 'aquisicao'>
+export type UpdateImageDTO = Optional<CreateImageDTO, 'idPaciente'|'caminho'|'tipo'|'aquisicao'|'arquivado'>

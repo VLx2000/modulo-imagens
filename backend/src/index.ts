@@ -3,7 +3,7 @@ import cors_config from 'api/middleware/cors';
 import { uploadError } from 'api/middleware/upload';
 import imagesRouter from 'api/routes';
 import dbInit from 'api/db.init';
-import { dirUploads, dirApagados } from 'api/config/saving';
+import { dirUploads, dirApagados } from 'api/config/dir.config';
 
 dbInit();
 

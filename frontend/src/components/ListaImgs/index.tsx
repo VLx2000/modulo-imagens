@@ -33,6 +33,17 @@ function ListaImgs({ images, arquivado }: Props) {
             .catch((err) => alert("Erro ao deletar imagem" + err));
     }
 
+    // atualiza aquisicao da imagem
+    function atualizarAquisicao(aquisicao: string, id: Number)  {
+        //console.log(aquisicao)
+        axiosInstance
+            .put('/update/' + id, { aquisicao: aquisicao })
+            .then((res) => {
+                document.location.reload();
+            })
+            .catch((err) => alert("Erro ao atualizar aquisicao" + err));
+    }
+
     return (
         <div>
             {images.map(image => (
@@ -40,7 +51,8 @@ function ListaImgs({ images, arquivado }: Props) {
                     <div>
                         <p>Caminho: {image.caminho}</p>
                         <p>Id: {image.id}/Paciente: {image.idPaciente}</p>
-                        <p>Aquisição: {image.aquisicao}</p>
+                        <input type="date" value={image.aquisicao} className="aquisicao"
+                                onChange={(e) => atualizarAquisicao(e.target.value, image.id)} />
                         <p>Tipo: {image.tipo}</p>
                     </div>
                     <div className="divBotao">
