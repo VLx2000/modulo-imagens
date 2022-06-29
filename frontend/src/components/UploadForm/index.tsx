@@ -11,9 +11,7 @@ type Props = {
 function UploadForm({ idPaciente }: Props) {
 
     // controller para cancelar requisição quando cliente desejar
-    const abortControllerRef = useRef<AbortController>(
-        new AbortController()
-    );
+    let abortControllerRef = useRef<AbortController>();
 
     const [image, setImage] = useState<Blob | string>('');
     const [aquisicao, setAquisicao] = useState<string>('');
@@ -24,6 +22,7 @@ function UploadForm({ idPaciente }: Props) {
         e.preventDefault();
         setMessage('');
         let formData = new FormData();
+        abortControllerRef.current = new AbortController();
         const signal = abortControllerRef.current.signal;   //sinal se deve continuar requisição
         formData.append("aquisicao", aquisicao as string);
         formData.append("idPaciente", idPaciente /* Math.floor(Math.random()* (10 - 1) + 1) as unknown as Blob*/);
@@ -93,7 +92,7 @@ function UploadForm({ idPaciente }: Props) {
             {!message && progress &&    //caso em q upload esta sendo feito
                 <div className="progress-data">
                     <ProgressBar animated now={progress} label={`${progress}%`} />
-                    <Button variant="warning" onClick={() => abortControllerRef.current.abort()}>Cancelar</Button>
+                    <Button variant="warning" onClick={() => abortControllerRef.current?.abort()}>Cancelar</Button>
                 </div>
             }
         </Form>
