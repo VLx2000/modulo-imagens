@@ -6,6 +6,7 @@ import { Request, Response } from 'express';
 
 // diretório em que serão armazenados os uploads
 export const dirUploads = 'uploads/';
+let filePath: string;
 
 type FormImage = {
     idPaciente: number;
@@ -27,7 +28,7 @@ const storage = multer.diskStorage({
             fs.mkdirSync(dirImage);
         }
         const idImage = crypto.randomUUID();
-        const filePath = idsPath + "/" + idImage + '.' + fileFormat;
+        filePath = idsPath + "/" + idImage + '.' + fileFormat;
 
         callback(null, filePath);
     }
@@ -48,6 +49,19 @@ export const upload = multer({
         } else {
             callback(null, false);
         }
+        req.on('aborted', () => {
+            file.stream.on('end', () => {
+                const caminho = dirUploads + filePath
+                console.log('Canceling the upload')
+                console.log(caminho)
+                fs.unlink(caminho, (async error => {
+                    if (error) console.log('error');
+                    else console.log("\nDeleted file: " + caminho);
+                }));
+                callback(null, false);
+            });
+            file.stream.emit('end');
+        })
     },
 });
 

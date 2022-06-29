@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Alert, Button, Form, ProgressBar } from "react-bootstrap";
 import axiosInstance from "utils/axios";
 import './styles.css';
@@ -7,7 +7,11 @@ type Props = {
     idPaciente: string
 }
 
-function UploadForm({idPaciente}: Props) {
+function UploadForm({ idPaciente }: Props) {
+
+    const abortControllerRef = useRef<AbortController>(
+        new AbortController()
+    );
 
     const [image, setImage] = useState<Blob | string>('');
     const [aquisicao, setAquisicao] = useState<string>('');
@@ -18,6 +22,7 @@ function UploadForm({idPaciente}: Props) {
         e.preventDefault();
         setMessage('');
         let formData = new FormData();
+        const signal = abortControllerRef.current.signal;
         formData.append("aquisicao", aquisicao as string);
         formData.append("idPaciente", idPaciente /* Math.floor(Math.random()* (10 - 1) + 1) as unknown as Blob*/);
         formData.append("idUser", 1 as unknown as Blob);
@@ -25,6 +30,7 @@ function UploadForm({idPaciente}: Props) {
 
         axiosInstance
             .post("/api/v1/images/", formData, {
+                signal,
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
@@ -35,7 +41,6 @@ function UploadForm({idPaciente}: Props) {
             .then((res) => {
                 //alert("File Upload success");
                 setMessage('Enviado com sucesso');
-                document.location.reload();
             })
             .catch((error) => {
                 const code = error?.response?.data?.code;
@@ -47,6 +52,9 @@ function UploadForm({idPaciente}: Props) {
                         setMessage("Ops. Algo deu errado");
                         break;
                 }
+                //console.log(signal)
+                if (signal.aborted)
+                    setMessage("Upload interrompido");
             });
     };
 
@@ -71,11 +79,17 @@ function UploadForm({idPaciente}: Props) {
                     {!!progress && message === '' ? 'Enviando...' : 'Upload'}
                 </Button>
             </Form.Group>
-            {message && 
-                <Alert variant={message === 'Enviado com sucesso' ? 'success' : 'danger'}>{message}</Alert>
+            {message &&
+                <Alert variant={message === 'Enviado com sucesso' ? 'success' : 'danger'}>
+                    <span>{message + ' '}</span>
+                    <span className="recarregar" onClick={() => document.location.reload()}>Recarregar página</span>
+                </Alert>
             }
-            {!message && progress && 
-                <ProgressBar animated now={progress} label={`${progress}%`} />
+            {!message && progress &&
+                <div className="progress-data">
+                    <ProgressBar animated now={progress} label={`${progress}%`} />
+                    <Button variant="warning" onClick={() => abortControllerRef.current.abort()}>Cancelar</Button>
+                </div>
             }
         </Form>
     );
