@@ -19,18 +19,17 @@ npm install && npm start
 ``` 
 > Tanto na pasta backend quanto na frontend
 
-> Necessário configurar banco de dados postgres em ```src/api/config/db.config.ts```
+> Necessário configurar banco de dados postgres em ```backend/src/api/config/db.config.ts```
 
 ### Funcionamento
-Neste módulo, o cliente, após logado, pode realizar o upload de uma imagem no formato .nii/.nii.gz para o servidor. Essas imagens serão salvas no sistema de arquivos no diretório configurado em ```src/api/middleware/upload.ts```, através da estrutura de pastas: ```pasta_upload/idUser/idPaciente```. Ao mesmo tempo em que são salvas suas informações  no banco de dados postgres (nome (gerado automaticamente), caminho, tipo, aquisição, data de upload e modificação).
+Neste módulo, o cliente, após logado, pode realizar o upload de uma imagem no formato .nii/.nii.gz para o servidor. Essas imagens serão salvas no sistema de arquivos no diretório configurado em ```backend/src/api/config/saving.ts```, através da estrutura de pastas: ```pasta_principal/pasta_upload/idUser/idPaciente```. Ao mesmo tempo em que são salvas suas informações no banco de dados postgres (nome (gerado automaticamente), caminho, tipo, aquisição, data de upload e modificação).
 
 ### Rotas disponíveis
 > No caminho `/api/v1/images`
 
 Requisição | Rota | Função
 --------- | ------ | ------
-get | `/` | obter todas as imagens salvas
-get | `/idPaciente` | obter imagens de determinado paciente
+get | `/idPaciente` | obter todas as imagens de determinado paciente
 post | `/` | criar nova imagem
 put | `/update/id` | atualizar imagem
 put | `/archive/id` | arquivar imagem

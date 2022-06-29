@@ -1,13 +1,9 @@
 import { Request, Response } from 'express';
 import { CreateImageDTO, UpdateImageDTO } from 'api/types/image.dto';
-import { dirUploads } from 'api/middleware/upload'
+import { dirUploads, dirApagados } from 'api/config/saving';
 import * as service from 'api/services/imageService';
 import fs from 'fs';
-
-export const getAll = async (req: Request, res: Response) => {
-    const results = await service.getAll();
-    return res.status(200).send(results);
-}
+import crypto from 'crypto';
 
 export const getPacienteImages = async (req: Request, res: Response) => {
     const id = Number(req.params.id);
@@ -50,14 +46,17 @@ export const updateVisibility = async (req: Request, res: Response) => {
     return res.status(204).send(result);
 }
 
-// ao inevs de apagar a imagem do disco será movida para outro local
+// ao inves de apagar a imagem do disco será movida para outro local
 export const apagar = async (req: Request, res: Response) => {
     const id = Number(req.params.id);
     const caminho_atual = dirUploads + await service.getCaminhoById(id);
-    const novo_caminho = 'apagados/' + caminho_atual.split('/')[3];  //pegando somente nome da imagem
+    const novo_caminho = dirApagados + /\/([^/]+)$/.exec(caminho_atual)![1] //pegando somente nome da imagem
     fs.rename(caminho_atual, novo_caminho,
         (async error => {
-            if (error) return res.status(422).send(error);
+            if (error) {
+                const result = await service.deleteById(id);
+                return res.status(422).send(result);
+            }
             else {
                 console.log("\nDeleted file: " + caminho_atual);
                 const result = await service.deleteById(id);
@@ -73,7 +72,10 @@ export const deletar = async (req: Request, res: Response) => {
     //uso de fs para primeiro apagar imagem do disco e depois info do bd
     fs.unlink(caminho,
         (async error => {
-            if (error) return res.status(422).send(error);
+            if (error) {
+                const result = await service.deleteById(id);
+                return res.status(422).send(result);
+            }
             else {
                 console.log("\nDeleted file: " + caminho);
                 const result = await service.deleteById(id);

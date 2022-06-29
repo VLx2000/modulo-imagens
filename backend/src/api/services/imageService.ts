@@ -1,15 +1,5 @@
 import Image, {ImageInput, ImageOuput} from 'api/models/Image'
 
-export const getAll = async (): Promise<ImageOuput[]>  => {
-    return await Image.findAll();
-}
-
-export const getAllNotArchived = async (): Promise<ImageOuput[]>  => {
-    return await Image.findAll({
-        where: {arquivado: false}
-    });
-}
-
 export const getAllByPaciente = async (id: number): Promise<ImageOuput[]> => {
     return await Image.findAll({
         where: {idPaciente: id}

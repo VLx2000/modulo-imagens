@@ -2,10 +2,8 @@ import multer from 'multer';
 import crypto from 'crypto';
 import fs from 'fs';
 import { Request, Response } from 'express';
-//const path = require('path')
+import { dirUploads } from 'api/config/saving';
 
-// diretório em que serão armazenados os uploads
-export const dirUploads = 'uploads/';
 let filePath: string;
 
 type FormImage = {

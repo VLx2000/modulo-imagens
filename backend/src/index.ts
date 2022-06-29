@@ -3,6 +3,7 @@ import cors_config from 'api/middleware/cors';
 import { uploadError } from 'api/middleware/upload';
 import imagesRouter from 'api/routes';
 import dbInit from 'api/db.init';
+import { dirUploads, dirApagados } from 'api/config/saving';
 
 dbInit();
 
@@ -19,8 +20,8 @@ export const start = () => {
     // Enable CORS
     app.use(cors_config);
 
-    app.use('/uploads/', express.static('uploads'));    //pasta de uploads
-    app.use('/apagados/', express.static('apagados'));  //pasta q imagens serão salvas apos serem removidas pelo cliente
+    app.use(dirUploads, express.static('uploads'));    //pasta de uploads
+    app.use(dirApagados, express.static('apagados'));  //pasta q imagens serão salvas apos serem removidas pelo cliente
     app.use(route, imagesRouter);
     app.use(uploadError);
 
