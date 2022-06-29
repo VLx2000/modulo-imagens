@@ -64,15 +64,17 @@ function UploadForm({ idPaciente }: Props) {
         <Form onSubmit={submitHandler} className="upload-form">
             <Form.Group controlId="formFile" className="mb-3">
                 <Form.Label>Upload de imagens</Form.Label>
-                <Form.Control
-                    type="file"
-                    // types necessarios para obter somente uma imagem passada no forms
-                    onChange={(e) => setImage(((e.target as HTMLInputElement).files as FileList)[0] as Blob)}
-                />
-                <Form.Control
-                    type="date"
-                    onChange={(e) => setAquisicao(e.target.value as string)}
-                />
+                <Form.Group className="form-inputs">
+                    <Form.Control
+                        type="file"
+                        // types necessarios para obter somente uma imagem passada no forms
+                        onChange={(e) => setImage(((e.target as HTMLInputElement).files as FileList)[0] as Blob)}
+                    />
+                    <Form.Control
+                        type="date"
+                        onChange={(e) => setAquisicao(e.target.value as string)}
+                    />
+                </Form.Group>
             </Form.Group>
             <Form.Group className="mb-3">
                 <Button variant="primary"

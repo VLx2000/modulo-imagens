@@ -1,5 +1,5 @@
 .upload-form {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .upload-button {
@@ -24,4 +24,9 @@
 .recarregar {
   text-decoration: underline;
   cursor: pointer;
+}
+
+.form-inputs {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
 }

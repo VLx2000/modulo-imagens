@@ -34,9 +34,7 @@ export const create = async (req: Request, res: Response) => {
 
 export const update = async (req: Request, res: Response) => {
     const id = Number(req.params.id);
-    const payload: UpdateImageDTO = {
-        aquisicao: req.body.aquisicao,
-    }
+    const payload: UpdateImageDTO = req.body;
     console.log(payload.aquisicao)
     const result = await service.update(id, payload);
     return res.status(200).send(result);

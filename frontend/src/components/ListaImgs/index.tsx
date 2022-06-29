@@ -51,6 +51,7 @@ function ListaImgs({ images, arquivado }: Props) {
                     <div>
                         <p>Caminho: {image.caminho}</p>
                         <p>Id: {image.id}/Paciente: {image.idPaciente}</p>
+                        <span>Aquisição: </span>
                         <input type="date" value={image.aquisicao} className="aquisicao"
                                 onChange={(e) => atualizarAquisicao(e.target.value, image.id)} />
                         <p>Tipo: {image.tipo}</p>
