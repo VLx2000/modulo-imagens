@@ -28,6 +28,8 @@ const storage = multer.diskStorage({
             fs.mkdirSync(dirImage);
         }
         const idImage = crypto.randomUUID();
+        // o caminho e ser salvo será gerado a partir da pasta configurada 
+        // a receber uploads + id do usuário + id do paciente + nome gerado aleatoriamente da img
         filePath = idsPath + "/" + idImage + '.' + fileFormat;
 
         callback(null, filePath);
@@ -44,11 +46,13 @@ export const upload = multer({
         const formats = /nii.gz|nii/;   //formatos suportados
         const fileFormat = /\.([^/]+)$/.exec(file.originalname)![1] //separando extensao do arquivo
         console.log('Extensão: ' + fileFormat)
+        // verificando se arquivo eh valido
         if (formats.test(fileFormat)) {
             callback(null, true);
         } else {
             callback(null, false);
         }
+        // tratando caso em que houve cancelamento de upload por parte do cliente
         req.on('aborted', () => {
             file.stream.on('end', () => {
                 const caminho = dirUploads + filePath

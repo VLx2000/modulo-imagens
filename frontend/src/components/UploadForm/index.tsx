@@ -7,8 +7,10 @@ type Props = {
     idPaciente: string
 }
 
+// component q exibe form para upload
 function UploadForm({ idPaciente }: Props) {
 
+    // controller para cancelar requisição quando cliente desejar
     const abortControllerRef = useRef<AbortController>(
         new AbortController()
     );
@@ -22,19 +24,19 @@ function UploadForm({ idPaciente }: Props) {
         e.preventDefault();
         setMessage('');
         let formData = new FormData();
-        const signal = abortControllerRef.current.signal;
+        const signal = abortControllerRef.current.signal;   //sinal se deve continuar requisição
         formData.append("aquisicao", aquisicao as string);
         formData.append("idPaciente", idPaciente /* Math.floor(Math.random()* (10 - 1) + 1) as unknown as Blob*/);
         formData.append("idUser", 1 as unknown as Blob);
         formData.append("image", image);
 
         axiosInstance
-            .post("/api/v1/images/", formData, {
+            .post('/', formData, {
                 signal,
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
-                onUploadProgress: (data) => {
+                onUploadProgress: (data) => {   //cria barra de progresso
                     setProgress(Math.round(100 * (data.loaded / data.total)));
                 },
             })
@@ -64,6 +66,7 @@ function UploadForm({ idPaciente }: Props) {
                 <Form.Label>Upload de imagens</Form.Label>
                 <Form.Control
                     type="file"
+                    // types necessarios para obter somente uma imagem passada no forms
                     onChange={(e) => setImage(((e.target as HTMLInputElement).files as FileList)[0] as Blob)}
                 />
                 <Form.Control
@@ -79,13 +82,13 @@ function UploadForm({ idPaciente }: Props) {
                     {!!progress && message === '' ? 'Enviando...' : 'Upload'}
                 </Button>
             </Form.Group>
-            {message &&
+            {message && //caso em q terminou o upload ou houve algum erro
                 <Alert variant={message === 'Enviado com sucesso' ? 'success' : 'danger'}>
                     <span>{message + ' '}</span>
                     <span className="recarregar" onClick={() => document.location.reload()}>Recarregar página</span>
                 </Alert>
             }
-            {!message && progress &&
+            {!message && progress &&    //caso em q upload esta sendo feito
                 <div className="progress-data">
                     <ProgressBar animated now={progress} label={`${progress}%`} />
                     <Button variant="warning" onClick={() => abortControllerRef.current.abort()}>Cancelar</Button>

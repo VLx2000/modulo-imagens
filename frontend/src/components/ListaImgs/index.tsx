@@ -8,11 +8,13 @@ type Props = {
     arquivado: boolean;
 }
 
+// component q exibe a lista de imagens de determinado paciente
 function ListaImgs({ images, arquivado }: Props) {
 
+    // para arquivar/desarquivar img
     function changeFileVisibility(id: Number) {
         axiosInstance
-            .put('/api/v1/images/archive/' + id)
+            .put('/archive/' + id)
             .then((res) => {
                 //alert("File Hide success");
                 document.location.reload();
@@ -20,9 +22,10 @@ function ListaImgs({ images, arquivado }: Props) {
             .catch((err) => alert("Erro ao modificar imagem" + err));
     }
     
+    // apaga imagem
     function deleteFile(id: Number) {
         axiosInstance
-            .delete('/api/v1/images/' + id)
+            .delete('/' + id)
             .then((res) => {
                 //alert("File Hide success");
                 document.location.reload();

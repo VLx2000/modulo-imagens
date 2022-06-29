@@ -1,6 +1,8 @@
 import { DataTypes, Model, Optional } from 'sequelize';
 import sequelizeConnection from 'api/config/db.config';
 
+// modelo criado com o intuito de uso do sequelize
+
 interface ImageAttributes {
     id: number;
     idPaciente: number;

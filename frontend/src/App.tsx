@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Upload from 'pages/Upload';
 import Pacientes from 'pages/Pacientes';
 
+// uso de react router dom para mudança de pags
 function App() {
   return (
     <BrowserRouter>

@@ -1,12 +1,13 @@
 import express, { Application } from 'express';
 import cors_config from 'api/middleware/cors';
 import { uploadError } from 'api/middleware/upload';
-import routes from 'api/routes';
+import imagesRouter from 'api/routes';
 import dbInit from 'api/db.init';
 
 dbInit();
 
 const port = 4000;
+const route = '/api/v1/images';
 
 export const start = () => {
     const app: Application = express();
@@ -19,7 +20,7 @@ export const start = () => {
     app.use(cors_config);
 
     app.use('/uploads/', express.static('uploads'));
-    app.use('/api/v1', routes);
+    app.use(route, imagesRouter);
     app.use(uploadError);
 
     try {

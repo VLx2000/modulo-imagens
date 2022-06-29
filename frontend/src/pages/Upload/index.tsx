@@ -5,6 +5,7 @@ import { UploadForm, ListaImgs } from "components";
 import { useParams } from 'react-router-dom';
 import axiosInstance from "utils/axios";
 
+// pag q sera acessada ao clicar em algum paciente
 function Upload() {
 
     const params = useParams();
@@ -14,7 +15,7 @@ function Upload() {
 
     useEffect(() => {
         axiosInstance
-            .get(`/api/v1/images/${params.idPaciente}`)
+            .get(`/${params.idPaciente}`)
             .then((res) => {
                 const data = res.data as Image[];
                 setImages(data);
