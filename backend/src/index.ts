@@ -19,7 +19,8 @@ export const start = () => {
     // Enable CORS
     app.use(cors_config);
 
-    app.use('/uploads/', express.static('uploads'));
+    app.use('/uploads/', express.static('uploads'));    //pasta de uploads
+    app.use('/apagados/', express.static('apagados'));  //pasta q imagens serão salvas apos serem removidas pelo cliente
     app.use(route, imagesRouter);
     app.use(uploadError);
 

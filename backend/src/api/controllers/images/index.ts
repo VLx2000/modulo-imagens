@@ -50,7 +50,24 @@ export const updateVisibility = async (req: Request, res: Response) => {
     return res.status(204).send(result);
 }
 
-export const erase = async (req: Request, res: Response) => {
+// ao inevs de apagar a imagem do disco será movida para outro local
+export const apagar = async (req: Request, res: Response) => {
+    const id = Number(req.params.id);
+    const caminho_atual = dirUploads + await service.getCaminhoById(id);
+    const novo_caminho = 'apagados/' + caminho_atual.split('/')[3];  //pegando somente nome da imagem
+    fs.rename(caminho_atual, novo_caminho,
+        (async error => {
+            if (error) return res.status(422).send(error);
+            else {
+                console.log("\nDeleted file: " + caminho_atual);
+                const result = await service.deleteById(id);
+                return res.status(204).send(result);
+            }
+        })
+    );
+}
+
+export const deletar = async (req: Request, res: Response) => {
     const id = Number(req.params.id);
     const caminho = dirUploads + await service.getCaminhoById(id);
     //uso de fs para primeiro apagar imagem do disco e depois info do bd
