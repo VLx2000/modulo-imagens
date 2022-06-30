@@ -1,5 +1,5 @@
 .upload-form {
-  margin-bottom: 20px;
+  margin-bottom: 100px;
 }
 
 .upload-button {
@@ -29,4 +29,10 @@
 .form-inputs {
   display: grid;
   grid-template-columns: 3fr 1fr;
+}
+
+@media (min-width: 768px) {
+  .upload-container {
+    max-width: 720px !important;
+  }
 }

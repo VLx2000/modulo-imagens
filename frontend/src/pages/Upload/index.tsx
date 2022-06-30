@@ -26,12 +26,13 @@ function Upload() {
     }, [params.idPaciente]);
 
     return (
-        <Container>
-
+        <Container className="upload-container">
+            <h1 style={{textAlign: 'center'}}>Paciente {params.idPaciente}</h1>
             {/* Formulario de upload de imagens */}
             <UploadForm idPaciente={`${params.idPaciente}`} />
             {carregado &&
-                <div>
+                <section>
+                    <h4>Imagens salvas</h4><hr/>
                     {/* Listagem de imagens n arquivadas */}
                     <ListaImgs images={images.filter(img => !img.arquivado)} arquivado={false} />
 
@@ -42,7 +43,7 @@ function Upload() {
                             <ListaImgs images={images.filter(img => img.arquivado)} arquivado={true} />
                         </Accordion.Body>
                     </Accordion >
-                </div >
+                </section >
             }
         </Container>
     );

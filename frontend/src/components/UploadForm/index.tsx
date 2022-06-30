@@ -62,7 +62,7 @@ function UploadForm({ idPaciente }: Props) {
     return (
         <Form onSubmit={submitHandler} className="upload-form">
             <Form.Group controlId="formFile" className="mb-3">
-                <Form.Label>Upload de imagens</Form.Label>
+                <h4>Upload de imagens</h4><hr/>
                 <Form.Group className="form-inputs">
                     <Form.Control
                         type="file"
