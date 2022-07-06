@@ -38,7 +38,7 @@ const storage = multer.diskStorage({
 export const upload = multer({
     storage: storage,
     limits: {
-        fileSize: 1024000 * 1024000,
+        fileSize: 1000000000,   //1GB
     },
     fileFilter: (req, file, callback) => {
         const formats = /nii.gz|nii/;   //formatos suportados

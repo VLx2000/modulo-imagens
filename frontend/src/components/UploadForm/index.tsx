@@ -49,6 +49,9 @@ function UploadForm({ idPaciente }: Props) {
                     case "ERRO_ARQUIVO":
                         setMessage("ADICIONE UM ARQUIVO .nii OU .nii.gz!!");
                         break;
+                    case "LIMIT_FILE_SIZE":
+                        setMessage("Arquivo muito grande. Limite de 1GB");
+                        break;
                     default:
                         setMessage("Ops. Algo deu errado");
                         break;
