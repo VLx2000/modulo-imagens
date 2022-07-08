@@ -1,25 +1,12 @@
-import { useEffect, useState } from "react";
 import { Nav, Navbar, Container } from 'react-bootstrap';
 import './styles.css';
 
 function NavigationBar() {
 
-    const [style, setStyle] = useState<boolean>(false);
-
-    useEffect(() => {
-        window.addEventListener("scroll", () => {
-            if (window.pageYOffset > 60) {
-                setStyle(true);
-            } else {
-                setStyle(false);
-            }
-        });
-    });
-
     return (
-        <Navbar collapseOnSelect bg="dark" variant='dark' expand="lg" sticky="top" className={style ? 'colorChange' : ''}>
+        <Navbar collapseOnSelect bg="dark" variant='dark' expand="lg" sticky="top">
             <Container >
-                <Navbar.Brand href='/' title="inicio secomp beta">
+                <Navbar.Brand href='/' title="Processamento de imagens">
                     <h1>Processamento de imagens</h1>
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
