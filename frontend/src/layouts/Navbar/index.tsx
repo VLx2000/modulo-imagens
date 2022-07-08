@@ -4,7 +4,7 @@ import './styles.css';
 
 function NavigationBar() {
 
-    const [style, setStyle] = useState(false);
+    const [style, setStyle] = useState<boolean>(false);
 
     useEffect(() => {
         window.addEventListener("scroll", () => {
