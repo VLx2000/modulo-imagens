@@ -1,23 +1,17 @@
-.dados {
-    display: grid;
-    grid-template-columns: 1fr .1fr;
-    margin-block: 50px;
-}
-
 .divMsg {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.divBotao {
-    display: grid;
+.tab-content {
+    text-align: center;
 }
 
-.divBotao button {
-    margin-block: 20px;
+.lista-imagens table {
+    background-color: white;
 }
 
-.aquisicao {
-    margin-bottom: 1em;
+.opcao-remover {
+    color: red !important;
 }

@@ -1,16 +1,21 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Upload from 'pages/Upload';
 import Pacientes from 'pages/Pacientes';
+import ListaImagens from "pages/Imagens";
+import UploadForm from "pages/Imagens/form";
+//import EdicaoForm from "pages/Pacientes/edicao";
+import Navbar from 'layouts/Navbar'
 
 // uso de react router dom para mudança de pags
 function App() {
   return (
     <BrowserRouter>
-      {/* <Navbar /> */}
+      <Navbar />
       <Routes>
         <Route path="/" element={<Pacientes />} />
-        <Route path="/paciente">
-          <Route path=":idPaciente" element={<Upload />} />
+        <Route path="paciente">
+          <Route path=":idPaciente" element={<ListaImagens />} />
+          <Route path=":idPaciente/upload" element={<UploadForm />} />
+          {/* <Route path=":idPaciente/editar" element={<EdicaoForm />} /> */}
         </Route>
       </Routes>
     </BrowserRouter>
