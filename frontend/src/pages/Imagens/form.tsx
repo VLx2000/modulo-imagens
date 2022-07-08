@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import { Alert, Button, Container, Form, ProgressBar } from "react-bootstrap";
 import { useParams, Link } from "react-router-dom";
 import axiosInstance from "utils/axios";
+import { Voltar } from "components";
 import './styles.css';
 
 // component q exibe form para upload
@@ -62,6 +63,7 @@ function UploadForm() {
 
     return (
         <Container className="upload-container">
+            <Voltar caminho={`/paciente/${params.idPaciente}`}/>
             <h3 className="titulo-pag">Upload de imagens</h3>
             <Form onSubmit={submitHandler} className="upload-form">
                 <Form.Group controlId="formFile" className="mb-3">
@@ -100,9 +102,6 @@ function UploadForm() {
                     </div>
                 }
             </Form>
-            <Link to={`/paciente/${params.idPaciente}`} className='div-voltar'>
-                <Button variant="secondary">Voltar</Button>
-            </Link>
         </Container>
     );
 }

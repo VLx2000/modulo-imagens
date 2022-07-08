@@ -51,7 +51,7 @@ function ListaImgs({ images, arquivado }: Props) {
 
     return (
         <div className="lista-imagens">
-            <Table striped bordered>
+            <Table striped bordered responsive>
                 <thead>
                     <tr>
                         <th>#id</th>

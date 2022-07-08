@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { Container, Button, Form, FormControl, Tabs, Tab } from "react-bootstrap";
+import { Container, Button, FormControl, Tabs, Tab } from "react-bootstrap";
 import { Image } from 'types/images';
-import { ListaImgs } from "components";
+import { ListaImgs, Voltar } from "components";
 import { useParams, Link } from 'react-router-dom';
 import axiosInstance from "utils/axios";
 
@@ -12,32 +12,45 @@ function ListaImagens() {
 
     const [carregado, setCarregado] = useState<Boolean>(false);
     const [images, setImages] = useState<Image[]>([]);
+    const [allImages, setAllImages] = useState<Image[]>([])
 
     useEffect(() => {
         axiosInstance
-            .get(`/${params.idPaciente}`)
+            .get('/' + params.idPaciente)
             .then((res) => {
                 const data = res.data as Image[];
                 setImages(data);
+                setAllImages(data);
                 //console.table(data)
                 setCarregado(true);
             })
             .catch((err) => alert("Erro ao carregar imagens" + err));
     }, [params.idPaciente]);
 
+    function handleFilter(event: React.ChangeEvent<HTMLInputElement>) {
+        const filter = event.target.value;
+        if (filter === '') {
+            setImages(allImages);
+        }
+        else {
+            setImages(allImages.filter(image =>
+                image.id.toString().includes(filter))
+            );
+        }
+    }
+
     return (
         <Container className="images-container">
+            <Voltar caminho={`/`} />
             <h3 className="titulo-pag">Imagens do paciente {params.idPaciente}</h3>
             <header className="header-imagens">
-                <Form className="d-flex">
-                    <FormControl
-                        type="search"
-                        placeholder="Pesquisar imagem por id ou data"
-                        className="me-2"
-                        aria-label="Search"
-                    />
-                    <Button variant="outline-success">Pesquisar</Button>
-                </Form>
+                <FormControl
+                    type="search"
+                    placeholder="filtrar imagem por id"
+                    className="me-2"
+                    aria-label="Search"
+                    onChange={handleFilter}
+                />
                 {/* Ir para formulario de upload de imagens */}
                 <div className="div-botao-novo-upload">
                     <Link to={`/paciente/${params.idPaciente}/upload`}>
@@ -57,9 +70,6 @@ function ListaImagens() {
                     </Tab>
                 </Tabs>
             }
-            <Link to={`/`} className='div-voltar'>
-                <Button variant="secondary">Voltar</Button>
-            </Link>
         </Container>
     );
 }

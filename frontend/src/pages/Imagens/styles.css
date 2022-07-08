@@ -3,9 +3,9 @@
 }
 
 /*index*/
-.images-container {
+/* .images-container {
   min-height: 100vh;
-}
+} */
 
 .header-imagens {
   display: flex;
@@ -23,13 +23,8 @@
 }
 
 /*form*/
-.upload-container {
-  min-height: 100vh;
-  display: grid;
-}
-
 .upload-form {
-  margin-block: 2em;
+  margin-block: 5em;
 }
 
 .form-inputs {
@@ -61,16 +56,14 @@
   border-radius: 0 0.25em 0.25em 0;
 }
 
-.div-voltar {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  margin-block: 5em;
+@media (min-width: 990px) {
+  .upload-form {
+    margin-inline: 15em;
+  }
 }
 
-@media (min-width: 768px) {
-  .upload-container {
-    max-width: 720px !important;
+@media (max-width: 991px) {
+  .upload-form {
+    margin-inline: 1em;
   }
 }
