@@ -7,7 +7,7 @@ import { dirUploads, dirApagados } from 'api/config/dir.config';
 
 dbInit();
 
-const port = 4000;
+const port = 4001;
 const route = '/api/v1/images';
 
 export const start = () => {

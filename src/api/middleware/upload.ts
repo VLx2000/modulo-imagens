@@ -73,12 +73,6 @@ export const uploadError = function (err: { code: any; message: string; }, req: 
         res.statusCode = 400;
         res.send({ code: err.code });
     } else if (err) {
-        if (err.message === "ERRO_ARQUIVO") {
-            res.statusCode = 400;
-            res.send({ code: err.message });
-        } else {
-            res.statusCode = 500;
-            res.send({ code: "GENERIC_ERROR" });
-        }
+        res.send({ code: err.message });
     }
 };
